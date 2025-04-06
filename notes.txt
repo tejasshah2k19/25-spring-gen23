@@ -1,0 +1,67 @@
+
+jsp - servlet --> technology  
+framework :
+	java web / java database 
+	
+	design pattern 
+
+	frontend 
+	backend 
+	mono
+	micro 
+		
+	spring 
+	hibernate 
+	
+	maven 
+	
+	download STS 
+	
+	spring -> starter project -> 
+	
+	com 
+	webapp -> WEB-INF/views 
+	
+	jsp plugin sts install -
+	
+	application.properties -> server.port=9999
+--------------------------------------------------------------------------------------	
+LOMBOK:-
+	we don't want to generate  , getters and setters manually 
+	We will use lombok for that 
+    we need to add lombok lib in pom.xml
+
+HOW TO ADD LOMBOK JAR IN PROJECT:- 
+	to add lombok we need to do right click on project
+	spring -> add starter and type lombok->click next -> tick pom.xml and finish 
+	now just write @Getter and @Setter on class 
+	it will generate getters and setters . you can check using outline view 
+
+
+----------------------------------------------------------------------------------
+How to add lomobok in STS :-
+	google -> download lombok -> you got jar in download -> jar -> click -> chilly icon -> installer-> 
+	browse -> sts path -> green icon sts -> select -> install -> quit installer
+	
+	now sts must be re-open [ close and open again ]   
+----------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
