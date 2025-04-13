@@ -36,6 +36,25 @@ public class UserDao {
 		List<UserEntity> users = stmt.query("select * from users where firstName = ?",
 				new BeanPropertyRowMapper<>(UserEntity.class), firstName);// firstName
 		return users;
-
 	}
+
+	public void deleteUser(Integer userId) {
+		stmt.update("delete from users where userId = ? ", userId);
+	}
+
+	public UserEntity getByUserId(Integer userId) {
+		UserEntity user = null;
+		try {
+			user = stmt.queryForObject("select * from users where userId = ? ",
+					new BeanPropertyRowMapper<>(UserEntity.class), userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+
+	public void updateUser(UserEntity user) {
+		stmt.update("update users set firstName = ? where userId = ? ", user.getFirstName(), user.getUserId());
+	}
+
 }

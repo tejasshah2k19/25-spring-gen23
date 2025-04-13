@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.dao.UserDao;
 import com.entity.UserEntity;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class UserController {
@@ -20,21 +22,59 @@ public class UserController {
 	@GetMapping("/listuser")
 	public String listUser(Model model) {
 		List<UserEntity> users = userDao.getAllUsers();
-		model.addAttribute("users",users);
+		model.addAttribute("users", users);
 		return "ListUser";
 	}
 
 	@GetMapping("search")
 	public String searchUser() {
-		return "SearchUser";
+		return "SearchUser";// open jsp
+	}
+
+	@PostMapping("searchuser")
+	public String searchUserDb(String firstName, Model model) {
+		List<UserEntity> users = userDao.searchByFirstName(firstName);
+		model.addAttribute("users", users);
+
+		return "ListUser";// open jsp
+	}
+
+	@GetMapping("deleteuser")
+	public String deleteUser(Integer userId) {
+		System.out.println(userId);
+		userDao.deleteUser(userId);
+		return "redirect:/listuser";// will call url
+	}
+
+	@GetMapping("viewuser")
+	public String viewUser(Integer userId,Model model) {
+		System.out.println(userId);
+		UserEntity user = userDao.getByUserId(userId);
+		model.addAttribute("user",user);
+		return "ViewUser";
 	}
 	
-	@PostMapping("searchuser")
-	public String searchUserDb(String firstName,Model model) {
-		List<UserEntity> users = userDao.searchByFirstName(firstName);
-		model.addAttribute("users",users);
-		
-		return "ListUser";
+	@GetMapping("edituser")
+	public String editUser(Integer userId,Model model) {
+		System.out.println(userId);
+		UserEntity user = userDao.getByUserId(userId);
+		model.addAttribute("user",user);
+		return "EditUser";
 	}
+
+	@PostMapping("updateuser")
+	public String updateUser(UserEntity user) {
+		userDao.updateUser(user);
+		return "redirect:/listuser";
+	}
+	
 	
 }
+
+
+
+
+
+
+
+
