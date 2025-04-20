@@ -1,0 +1,57 @@
+postgres : DB 
+
+users 
+	userId : PK : Integer 
+	firstName
+	lastName
+	email
+	password
+	gender
+	role : String [Admin,User] 
+	createdAt : 
+	
+expenses : 
+	expenseId   : PK : int 
+	title       : Pizza Party
+	vendor      : Lapinoz 
+	category    : Food 
+	amount      : 1500 
+	paymentMode : CASH 
+	expenseDate : 10-10-2024
+	userId      : FK : USER  {int} 
+	
+	
+	
+when we use signup page -> role : USER 
+
+LocalDate today = LocalDate.now(); //createdAt 
+
+Signup 
+Login
+ForgetPassword**
+Login : ROLE : USER -> 
+				Home 
+					List Expenses 
+					New Expense
+					Logout 
+					
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+
+
+
+

@@ -64,6 +64,9 @@ public class UserController {
 
 	@PostMapping("updateuser")
 	public String updateUser(UserEntity user) {
+		//firstName 
+		//userId 
+		
 		userDao.updateUser(user);
 		return "redirect:/listuser";
 	}
