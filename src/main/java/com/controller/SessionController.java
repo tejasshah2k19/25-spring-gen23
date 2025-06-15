@@ -38,7 +38,7 @@ public class SessionController {
 		// db save
 		userDao.addUser(userEntity);
 
-		mailerService.sendWelcomeMail(userEntity.getEmail());
+		mailerService.sendWelcomeMail(userEntity.getEmail(),userEntity.getFirstName());
 		return "Login"; // jsp->Login
 	}
 
