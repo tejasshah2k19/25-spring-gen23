@@ -45,6 +45,103 @@ How to add lomobok in STS :-
 	
 	now sts must be re-open [ close and open again ]   
 ----------------------------------------------------------------------------------
+validation
+
+crud 
+
+
+
+
+
+-----------------------------------------------------------------------------------
+git 
+cloud db
+deployment 
+send mail 
+fileupload
+
+
+
+encrypt password / decrypt password 
+-----------------------------------------------------------------------------------
+password encryption 
+
+step1 : pom.xml 
+				spring security crypto 
+				
+step2: 
+
+		BcryptPasswordEncoder
+			encode()  
+		royal ->smdjuy78u4hj4i5t8t7r4yhrfuifuydgv
+		create spring bean in main application file-> 
+		@Bean
+		PasswordEncoder getEncoder() {
+			return new BCryptPasswordEncoder();
+		}
+
+step3: 
+		@Autowired 
+		PasswordEncoder passwordEncoder; 
+		
+		passwordEncoder.encode(userBean.getPassword());
+		
+--------------------------------------------------------------------------------
+Login -> authenticate 
+
+
+		Login.jsp >	email , password 
+		
+		controller -> read email password {raw password} 
+		
+		
+		select * from user where email = ? 
+		
+		dbUser -> 
+		rawPassword 
+		bcrypt -> matches(e,r)->true | false
+
+
+--------------------------------------------------------------------------
+Signup -> Welcome mail 
+3 times invalid credentials -> send mail 
+forgetPassword -> otp -> link -> 
+
+http server -> 
+smtp server -> 
+
+
+1)you have to integrate smtp server in your system 
+2)you can use any third party api / server 
+	gmail 
+	
+
+email
+password:
+
+mail -> app password 
+ 
+step 1: mail jar 
+
+step 2: SMTP configuration  / third party api configuration 
+ 
+step 3: send the mail 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

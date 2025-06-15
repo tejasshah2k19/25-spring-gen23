@@ -7,13 +7,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.dao.UserDao;
 import com.entity.UserEntity;
+import com.service.MailerService;
 
 @Controller
 public class SessionController {
 
 	@Autowired
 	UserDao userDao;
-	
+
+	@Autowired
+	MailerService mailerService;
+
 	@GetMapping({ "/", "register" })
 	public String signup() {
 		return "Register";// Jsp Name
@@ -33,6 +37,8 @@ public class SessionController {
 		// validation
 		// db save
 		userDao.addUser(userEntity);
+
+		mailerService.sendWelcomeMail(userEntity.getEmail());
 		return "Login"; // jsp->Login
 	}
 
