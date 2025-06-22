@@ -1,10 +1,14 @@
 package com.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +19,8 @@ import com.cloudinary.utils.ObjectUtils;
 import com.dao.UserDao;
 import com.entity.UserEntity;
 import com.service.MailerService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class SessionController {
@@ -54,20 +60,39 @@ public class SessionController {
 		if (profilePic.getSize() >= 10 * 1024) {
 
 		}
-
+		
+		//local 
 		try {
-
-			Map result = cloudinary.uploader().upload(profilePic.getBytes(), ObjectUtils.emptyMap());
-
-			System.out.println(result);
-			String imagePath = result.get("secure_url").toString();
-			System.out.println(imagePath);
-
-			userEntity.setProfilePicPath(imagePath);
-
-		} catch (IOException e) {
+			String masterPath = "C:\\sts\\25-spring-gen23\\src\\main\\webapp\\profilepics";
+			File file = new File(masterPath,profilePic.getOriginalFilename());
+			FileCopyUtils.copy(profilePic.getBytes(), file);
+			
+			//profilepics/profilePic.getOriginalFilename()
+			userEntity.setProfilePicPath("profilepics/"+profilePic.getOriginalFilename());
+			
+			
+			
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
+		
+		//cloud 
+
+//		try {
+//
+//			Map result = cloudinary.uploader().upload(profilePic.getBytes(), ObjectUtils.emptyMap());
+//
+//			System.out.println(result);
+//			String imagePath = result.get("secure_url").toString();
+//			System.out.println(imagePath);
+//
+//			userEntity.setProfilePicPath(imagePath);
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
 		// db save
 		userDao.addUser(userEntity);
@@ -76,4 +101,27 @@ public class SessionController {
 		return "Login"; // jsp->Login
 	}
 
+	
+	
+	@PostMapping("/authenticate")
+	public String authenticate(String email,String password,Model model,HttpSession session) {
+		UserEntity dbUser =  userDao.getUserByEmail(email);
+		
+		if(dbUser == null || !dbUser.getPassword().equals(password)) {
+			model.addAttribute("error","Invalid Credentials");
+			return "Login";
+		}
+		session.setAttribute("user", dbUser);
+
+		return "Home";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

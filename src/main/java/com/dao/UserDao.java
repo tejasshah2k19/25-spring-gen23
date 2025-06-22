@@ -56,5 +56,16 @@ public class UserDao {
 	public void updateUser(UserEntity user) {
 		stmt.update("update users set firstName = ? where userId = ? ", user.getFirstName(), user.getUserId());
 	}
+	
+	public UserEntity getUserByEmail(String email) {
+		UserEntity user = null;
+		try {
+			user = stmt.queryForObject("select * from users where email = ? ",
+					new BeanPropertyRowMapper<>(UserEntity.class), email);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
 
 }

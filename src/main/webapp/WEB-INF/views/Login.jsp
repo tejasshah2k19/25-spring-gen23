@@ -9,6 +9,17 @@
 <body>
 <h2>Login</h2>
 
-<a href="register">New User?</a>
+<form action="authenticate" method="post" enctype="multipart/form-data">
+	Email : <input type="text" name="email" /><br><br>
+	Password : <input type="password" name="password" /><br><br>
+	
+	<input type="submit" value="Login"/>
+	
+</form>
+
+<a href="signup">New User?</a>
+<br>
+${error }
+
 </body>
 </html>

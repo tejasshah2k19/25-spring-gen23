@@ -57,8 +57,8 @@ crud
 git 
 cloud db
 deployment 
-send mail 
-fileupload
+send mail --done 
+fileupload --cloudinary --- local--- 
 
 
 
