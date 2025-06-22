@@ -20,8 +20,8 @@ public class UserDao {
 		// executeUpdate
 		// update
 		// insert update delete
-		stmt.update("insert into users (firstName,email,password) values (?,?,?)", user.getFirstName(), user.getEmail(),
-				user.getPassword());
+		stmt.update("insert into users (firstName,email,password,profilepicpath) values (?,?,?,?)", user.getFirstName(), user.getEmail(),
+				user.getPassword(),user.getProfilePicPath());
 	}
 
 	public List<UserEntity> getAllUsers() {

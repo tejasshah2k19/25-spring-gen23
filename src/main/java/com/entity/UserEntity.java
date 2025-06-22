@@ -5,7 +5,9 @@ public class UserEntity {
 	private String firstName;
 	private String email;
 	private String password;
-
+	
+	private String profilePicPath; 
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -36,6 +38,14 @@ public class UserEntity {
 
 	public void setUserId(Integer userId) {
 		this.userId = userId;
+	}
+
+	public String getProfilePicPath() {
+		return profilePicPath;
+	}
+
+	public void setProfilePicPath(String profilePicPath) {
+		this.profilePicPath = profilePicPath;
 	}
 
 }

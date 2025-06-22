@@ -127,18 +127,84 @@ step 2: SMTP configuration  / third party api configuration
  
 step 3: send the mail 
 
+-----------------------------------
 
 
+file uploading ->profile Pic 
+
+step1: 
+ProfilePic: <input type="file" name="profilePic"/><br><Br> 
+	
+
+step2: form -> encType="multipart/form-data" 
+			   method="post"
+
+step3: controller -> read file 
+				@RequestParam MultipartFile  profilePic
+
+step4: upload to the cloud : we will use cloudinary 
+			<dependency>
+			    <groupId>com.cloudinary</groupId>
+			    <artifactId>cloudinary-http44</artifactId>
+			    <version>1.33.0</version> <!-- Use latest -->
+			</dependency>
+		
+step 5: 
+		configuration for the cloudinary in application.properties 
+		cloudinary.cloud-name=XXX
+		cloudinary.api-key=XXX
+		cloudinary.api-secret=XXX
+		
+step 6: main java file ->
+				Application.java 
+				
+		mark your cloudinary for singleton 
+		@Value("${cloudinary.cloud-name}")
+		String cloudName;
+		@Value("${cloudinary.api-key}")
+		String apiKey;
+		@Value("${cloudinary.api-secret}")
+		String apiSecret;
+		@Bean
+		Cloudinary getCloudinary() {
+			Map<String, String> config = new HashMap<>();
+			config.put("cloud_name", cloudName);
+			config.put("api_key", apiKey);
+			config.put("api_secret", apiSecret);
+			return new Cloudinary(config);
+		}			
+
+step 7: 
+		file uploading code 
+					@Autowired
+				Cloudinary cloudinary;
+				
+		try {
+
+			Map result = cloudinary.uploader().upload(profilePic.getBytes(), ObjectUtils.emptyMap());
+
+			System.out.println(result);
+			String imagePath = result.get("secure_url").toString();
+			System.out.println(imagePath);
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+ 
 
 
-
-
-
-
-
-
-
-
+step 8: 
+		now create profilePicPath column in table [ users table ] 
+		and 
+		crate profilePicPath string variable in UserEntity 
+		
+step 9: 
+		secure_url 
+		userEntity.setProfilePicPath(secureUrl);
+		db.save
+		
+		
 
 
 
